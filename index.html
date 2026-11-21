@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>This Is Not a Heart — Creative Drawing Activity</title>
+  <style>
+    :root {
+      --bg-overlay: rgba(255, 249, 240, 0.84);
+      --card-bg: rgba(255, 255, 255, 0.96);
+      --ink: #1e2430;
+      --muted: #3f4756;
+      --accent: #ff5d73;
+      --accent-dark: #e04358;
+      --teal: #2b9eb3;
+      --border: #e6dfd3;
+      --shadow: 0 12px 30px rgba(30, 36, 48, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: "Trebuchet MS", "Segoe UI", system-ui, -apple-system, sans-serif;
+      background-color: #fff9f0;
+      background-image:
+        linear-gradient(var(--bg-overlay), var(--bg-overlay)),
+        url("https://www.apple.com/tv-pr/articles/2025/05/apple-tv-announces-not-a-box-an-all-new-animated-preschool-series-premiering-globally-friday-june-13/images/big-image/big-image-03/051325_Not_A_Box_Series_Announcement_Big_Image_03_big_image_post.jpg.large.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: var(--ink);
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px 22px;
+    }
+
+    @media (min-width: 861px) {
+      html,
+      body {
+        height: 100vh;
+        overflow: hidden;
+      }
+    }
+
+    .app {
+      width: 100%;
+      max-width: 1220px;
+      height: calc(100vh - 36px);
+      min-height: 620px;
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 14px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      backdrop-filter: blur(4px);
+    }
+
+    .top-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff0f2;
+      color: var(--accent-dark);
+      border: 1px solid #ffd2d8;
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 4px 11px;
+      border-radius: 999px;
+    }
+
+    .sparks-toggle {
+      background: #f4f7fb;
+      color: var(--ink);
+      border: 1.5px solid #d5dfec;
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .sparks-toggle:hover {
+      background: #e9eff8;
+    }
+
+    .sparks-panel {
+      display: none;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      background: #fffdf8;
+      border: 1.5px dashed #f0c96b;
+      border-radius: 12px;
+      padding: 6px 12px;
+      font-size: 0.82rem;
+      flex-shrink: 0;
+    }
+
+    .sparks-panel.open {
+      display: flex;
+    }
+
+    .sparks-label {
+      font-weight: 700;
+      color: #8a5a00;
+      margin-right: 4px;
+    }
+
+    .spark-pill {
+      background: #ffffff;
+      border: 1.5px solid #e5d8b8;
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      transition: transform 0.12s ease, background 0.12s ease;
+    }
+
+    .spark-pill:hover {
+      background: #fff3d1;
+      transform: translateY(-1px);
+    }
+
+    .prompt-header {
+      text-align: center;
+      flex-shrink: 0;
+      line-height: 1.22;
+      padding: 2px 8px;
+    }
+
+    .prompt-main {
+      margin: 0 0 4px;
+      font-size: clamp(1.65rem, 3vw, 2.25rem);
+      font-weight: 900;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .prompt-blank-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: center;
+      gap: 8px;
+      font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .article-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #fff3d6;
+      color: #1e2430;
+      border: 2px solid #eab308;
+      border-radius: 10px;
+      padding: 1px 10px;
+      font-family: inherit;
+      font-size: 0.92em;
+      font-weight: 900;
+      cursor: pointer;
+      line-height: 1.15;
+      transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .article-btn:hover {
+      background: #ffe6a8;
+      transform: translateY(-1px);
+    }
+
+    .article-hint {
+      font-size: 0.54em;
+      font-weight: 700;
+      color: #7c5800;
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 6px;
+      padding: 1px 5px;
+    }
+
+    .blank-input {
+      width: 310px;
+      max-width: 100%;
+      border: none;
+      border-bottom: 3.5px solid var(--ink);
+      background: #fffdf8;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: 800;
+      color: var(--accent-dark);
+      text-align: center;
+      padding: 1px 10px 2px;
+      outline: none;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .blank-input:focus {
+      border-bottom-color: var(--teal);
+      background: #f2fbfd;
+    }
+
+    .blank-input::placeholder {
+      color: #9ba3b2;
+      font-weight: 600;
+      font-size: 0.82em;
+    }
+
+    .prompt-instruction {
+      margin: 0;
+      font-size: clamp(0.84rem, 1.15vw, 0.96rem);
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .workspace {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 224px 1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      background: #f9f6f0;
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 11px;
+      overflow-y: auto;
+    }
+
+    .sidebar-section {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .section-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #5b6475;
+    }
+
+    .tool-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .tool-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      background: #ffffff;
+      border: 1.5px solid #d8d1c5;
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--ink);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.14s ease;
+    }
+
+    .tool-icon {
+      font-size: 1.05rem;
+      line-height: 1;
+    }
+
+    .tool-btn:hover {
+      border-color: #b5ada0;
+      background: #fcfbf9;
+    }
+
+    .tool-btn.active {
+      background: var(--ink);
+      color: #ffffff;
+      border-color: var(--ink);
+    }
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 5px;
+      justify-items: center;
+      padding-top: 2px;
+    }
+
+    .swatch {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 0 1.5px rgba(30, 36, 48, 0.25);
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.12s ease;
+    }
+
+    .swatch:hover {
+      transform: scale(1.08);
+    }
+
+    .swatch.active {
+      transform: scale(1.14);
+      box-shadow: 0 0 0 2.5px var(--ink);
+    }
+
+    .size-pills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      background: #ffffff;
+      border: 1.5px solid #d8d1c5;
+      border-radius: 10px;
+      padding: 3px;
+    }
+
+    .size-btn {
+      border: none;
+      background: transparent;
+      border-radius: 7px;
+      padding: 4px 0;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #5b6475;
+      cursor: pointer;
+    }
+
+    .size-btn.active {
+      background: var(--teal);
+      color: #ffffff;
+    }
+
+    .action-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      border: 1.5px solid #d8d1c5;
+      background: #ffffff;
+      color: var(--ink);
+      border-radius: 10px;
+      padding: 6px 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.14s ease;
+    }
+
+    .action-btn:hover {
+      background: #f3efe8;
+    }
+
+    .action-btn.danger:hover {
+      background: #fff0f2;
+      border-color: #ff9aa8;
+      color: var(--accent-dark);
+    }
+
+    .save-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      background: var(--accent);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 9px 12px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 5px 14px rgba(255, 93, 115, 0.28);
+      transition: transform 0.12s ease, background 0.15s ease;
+    }
+
+    .save-btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .save-btn:active {
+      transform: translateY(0);
+    }
+
+    .canvas-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      background: #ffffff;
+      border: 2px solid #d8d1c5;
+      border-radius: 16px;
+      overflow: hidden;
+      touch-action: none;
+    }
+
+    .pad-meta-bar {
+      position: absolute;
+      top: 10px;
+      left: 14px;
+      right: 14px;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      pointer-events: none;
+    }
+
+    .pad-meta-field {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 6px;
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: #2b3342;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 2px 8px;
+      border-radius: 8px;
+      pointer-events: auto;
+    }
+
+    .pad-meta-input {
+      border: none;
+      border-bottom: 2px solid #4a5568;
+      background: transparent;
+      font-family: inherit;
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--ink);
+      padding: 0 4px 1px;
+      outline: none;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .pad-meta-input.name-input {
+      width: 260px;
+    }
+
+    .pad-meta-input.no-input {
+      width: 110px;
+      text-align: center;
+    }
+
+    .pad-meta-input:focus {
+      border-bottom-color: var(--teal);
+      background: rgba(242, 251, 253, 0.9);
+    }
+
+    .pad-meta-input::placeholder {
+      color: #9aa3b2;
+      font-weight: 500;
+      font-size: 0.88em;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      cursor: crosshair;
+    }
+
+    @media (max-width: 860px) {
+      html,
+      body {
+        background-attachment: scroll;
+      }
+
+      body {
+        align-items: flex-start;
+        padding: 12px;
+      }
+
+      .app {
+        height: auto;
+        min-height: calc(100vh - 24px);
+        padding: 12px 14px 16px;
+        border-radius: 18px;
+      }
+
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        gap: 8px;
+      }
+
+      .tool-stack {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .tool-btn {
+        width: auto;
+        flex: 1 1 110px;
+        justify-content: center;
+      }
+
+      .swatches {
+        grid-template-columns: repeat(9, 1fr);
+      }
+
+      .canvas-wrap {
+        min-height: 340px;
+        height: 56vh;
+      }
+
+      .pad-meta-input.name-input {
+        width: 175px;
+      }
+
+      .pad-meta-input.no-input {
+        width: 85px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <div class="top-strip">
+      <span class="badge">Thinking Outside the Box</span>
+      <button type="button" class="sparks-toggle" id="sparksToggle" aria-expanded="false">
+        💡 Idea Sparks
+      </button>
+    </div>
+
+    <section class="sparks-panel" id="sparksPanel" aria-label="Idea Sparks">
+      <span class="sparks-label">Need a spark?</span>
+      <button type="button" class="spark-pill" data-idea="hot air balloon">hot air balloon</button>
+      <button type="button" class="spark-pill" data-idea="strawberry">strawberry</button>
+      <button type="button" class="spark-pill" data-idea="butterfly wings">butterfly wings</button>
+      <button type="button" class="spark-pill" data-idea="ice cream cone">ice cream cone</button>
+      <button type="button" class="spark-pill" data-idea="crown">crown</button>
+      <button type="button" class="spark-pill" data-idea="tulip flower">tulip flower</button>
+      <button type="button" class="spark-pill" data-idea="octopus">octopus</button>
+      <button type="button" class="spark-pill" data-idea="apple">apple</button>
+    </section>
+
+    <header class="prompt-header">
+      <h1 class="prompt-main">This is not a heart.</h1>
+      <div class="prompt-blank-row">
+        <span>This is</span>
+        <button
+          type="button"
+          id="articleBtn"
+          class="article-btn"
+          title="Click to switch between an and a"
+          aria-label="Choose article an or a"
+        >
+          <span id="articleText">an</span>
+          <span class="article-hint">an / a</span>
+        </button>
+        <input
+          type="text"
+          id="objectInput"
+          class="blank-input"
+          placeholder="type what you drew..."
+          autocomplete="off"
+          aria-label="Object name fill in the blank"
+        />
+      </div>
+      <p class="prompt-instruction">
+        Draw around, inside, or beyond the black half-heart outline to turn it into something new!
+      </p>
+    </header>
+
+    <div class="workspace">
+      <aside class="sidebar" aria-label="Drawing controls">
+        <div class="sidebar-section">
+          <span class="section-title">Tools</span>
+          <div class="tool-stack" role="toolbar" aria-label="Drawing tools">
+            <button type="button" class="tool-btn active" id="penTool" data-tool="pen">
+              <span class="tool-icon" aria-hidden="true">✏️</span>
+              <span>Pencil</span>
+            </button>
+            <button type="button" class="tool-btn" id="markerTool" data-tool="marker">
+              <span class="tool-icon" aria-hidden="true">🖍️</span>
+              <span>Marker</span>
+            </button>
+            <button type="button" class="tool-btn" id="eraserTool" data-tool="eraser">
+              <span class="tool-icon" aria-hidden="true">🧹</span>
+              <span>Eraser</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <span class="section-title">Colors</span>
+          <div class="swatches" id="swatches" aria-label="Colors">
+            <button type="button" class="swatch active" data-color="#1e2430" style="background:#1e2430;" title="Black"></button>
+            <button type="button" class="swatch" data-color="#6e7787" style="background:#6e7787;" title="Gray"></button>
+            <button type="button" class="swatch" data-color="#ff3b5c" style="background:#ff3b5c;" title="Red"></button>
+            <button type="button" class="swatch" data-color="#ff6b6b" style="background:#ff6b6b;" title="Coral"></button>
+            <button type="button" class="swatch" data-color="#ff8c1a" style="background:#ff8c1a;" title="Orange"></button>
+            <button type="button" class="swatch" data-color="#ffad33" style="background:#ffad33;" title="Peach"></button>
+            <button type="button" class="swatch" data-color="#ffd000" style="background:#ffd000;" title="Yellow"></button>
+            <button type="button" class="swatch" data-color="#9be564" style="background:#9be564;" title="Lime"></button>
+            <button type="button" class="swatch" data-color="#22b573" style="background:#22b573;" title="Green"></button>
+            <button type="button" class="swatch" data-color="#1098ad" style="background:#1098ad;" title="Teal"></button>
+            <button type="button" class="swatch" data-color="#22b8cf" style="background:#22b8cf;" title="Cyan"></button>
+            <button type="button" class="swatch" data-color="#1e88e5" style="background:#1e88e5;" title="Blue"></button>
+            <button type="button" class="swatch" data-color="#4c6ef5" style="background:#4c6ef5;" title="Indigo"></button>
+            <button type="button" class="swatch" data-color="#8e44ad" style="background:#8e44ad;" title="Purple"></button>
+            <button type="button" class="swatch" data-color="#d63384" style="background:#d63384;" title="Magenta"></button>
+            <button type="button" class="swatch" data-color="#ff7eb6" style="background:#ff7eb6;" title="Pink"></button>
+            <button type="button" class="swatch" data-color="#8d5524" style="background:#8d5524;" title="Brown"></button>
+            <button type="button" class="swatch" data-color="#c68642" style="background:#c68642;" title="Tan"></button>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <span class="section-title">Size</span>
+          <div class="size-pills" aria-label="Stroke size">
+            <button type="button" class="size-btn" data-size="small">S</button>
+            <button type="button" class="size-btn active" data-size="medium">M</button>
+            <button type="button" class="size-btn" data-size="large">L</button>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <span class="section-title">Actions</span>
+          <div class="action-row">
+            <button type="button" class="action-btn" id="undoBtn" title="Undo last stroke">
+              ↩️ Undo
+            </button>
+            <button type="button" class="action-btn danger" id="clearBtn" title="Clear drawing">
+              🗑️ Clear
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="save-btn" id="saveBtn">
+          💾 Save Image
+        </button>
+      </aside>
+
+      <div class="canvas-wrap" id="canvasWrap">
+        <div class="pad-meta-bar">
+          <label class="pad-meta-field" for="studentNameInput">
+            <span>Name:</span>
+            <input
+              type="text"
+              id="studentNameInput"
+              class="pad-meta-input name-input"
+              placeholder="______________________"
+              autocomplete="off"
+            />
+          </label>
+          <label class="pad-meta-field" for="studentNoInput">
+            <span>Student No.:</span>
+            <input
+              type="text"
+              id="studentNoInput"
+              class="pad-meta-input no-input"
+              placeholder="__________"
+              autocomplete="off"
+            />
+          </label>
+        </div>
+        <canvas id="drawingCanvas" width="1200" height="800"></canvas>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const canvas = document.getElementById("drawingCanvas");
+    const canvasWrap = document.getElementById("canvasWrap");
+    const ctx = canvas.getContext("2d");
+
+    const penToolBtn = document.getElementById("penTool");
+    const markerToolBtn = document.getElementById("markerTool");
+    const eraserToolBtn = document.getElementById("eraserTool");
+    const swatchBtns = Array.from(document.querySelectorAll(".swatch"));
+    const sizeBtns = Array.from(document.querySelectorAll(".size-btn"));
+    const undoBtn = document.getElementById("undoBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const saveBtn = document.getElementById("saveBtn");
+    const articleBtn = document.getElementById("articleBtn");
+    const articleText = document.getElementById("articleText");
+    const objectInput = document.getElementById("objectInput");
+    const studentNameInput = document.getElementById("studentNameInput");
+    const studentNoInput = document.getElementById("studentNoInput");
+    const sparksToggle = document.getElementById("sparksToggle");
+    const sparksPanel = document.getElementById("sparksPanel");
+    const sparkPills = Array.from(document.querySelectorAll(".spark-pill"));
+
+    let currentTool = "pen"; // "pen" | "marker" | "eraser"
+    let currentColor = "#1e2430";
+    let currentSizeKey = "medium";
+    let chosenArticle = "an"; // "an" | "a"
+    let manualArticleOverride = false;
+    let isDrawing = false;
+    let lastPt = null;
+    let currentStroke = null;
+    let strokes = [];
+
+    const SIZE_MAP = {
+      pen: { small: 3, medium: 5.5, large: 9.5 },
+      marker: { small: 14, medium: 26, large: 42 },
+      eraser: { small: 16, medium: 30, large: 50 }
+    };
+
+    function setArticle(article, isManual = false) {
+      chosenArticle = article === "a" ? "a" : "an";
+      manualArticleOverride = isManual;
+      articleText.textContent = chosenArticle;
+    }
+
+    function suggestArticleForWord(text) {
+      const cleaned = text.trim().toLowerCase().replace(/^[^a-z]+/, "");
+      if (!cleaned) return null;
+      const firstWord = cleaned.split(/\s+/)[0];
+      if (/^(hour|honest|honor|heir)/.test(firstWord)) return "an";
+      if (/^(uni[^n]|use|user|euro|one|once)/.test(firstWord)) return "a";
+      return /^[aeiou]/.test(firstWord) ? "an" : "a";
+    }
+
+    articleBtn.addEventListener("click", () => {
+      setArticle(chosenArticle === "an" ? "a" : "an", true);
+    });
+
+    objectInput.addEventListener("input", () => {
+      if (!objectInput.value.trim()) {
+        manualArticleOverride = false;
+        setArticle("an", false);
+        return;
+      }
+      if (!manualArticleOverride) {
+        const suggested = suggestArticleForWord(objectInput.value);
+        if (suggested) {
+          setArticle(suggested, false);
+        }
+      }
+    });
+
+    function traceHalfHeartPath(targetCtx, w, h) {
+      const cx = w * 0.44;
+      const cy = h * 0.54;
+      const scale = Math.min(w, h) * 0.0195;
+
+      targetCtx.beginPath();
+      const steps = 120;
+      for (let i = 0; i <= steps; i++) {
+        const theta = (i / steps) * Math.PI;
+        const x = 16 * Math.pow(Math.sin(theta), 3);
+        const y = -(
+          13 * Math.cos(theta) -
+          5 * Math.cos(2 * theta) -
+          2 * Math.cos(3 * theta) -
+          Math.cos(4 * theta)
+        );
+        const px = cx + x * scale;
+        const py = cy + y * scale;
+        if (i === 0) {
+          targetCtx.moveTo(px, py);
+        } else {
+          targetCtx.lineTo(px, py);
+        }
+      }
+    }
+
+    function drawHalfHeartOutline(targetCtx, w, h) {
+      targetCtx.save();
+      traceHalfHeartPath(targetCtx, w, h);
+      targetCtx.strokeStyle = "#111111";
+      targetCtx.lineWidth = Math.max(5.5, Math.min(w, h) * 0.008);
+      targetCtx.lineJoin = "round";
+      targetCtx.lineCap = "round";
+      targetCtx.stroke();
+      targetCtx.restore();
+    }
+
+    function drawSingleStroke(targetCtx, stroke) {
+      if (!stroke.points || stroke.points.length === 0) return;
+
+      targetCtx.save();
+      targetCtx.lineCap = "round";
+      targetCtx.lineJoin = "round";
+
+      if (stroke.tool === "eraser") {
+        targetCtx.globalCompositeOperation = "source-over";
+        targetCtx.strokeStyle = "#ffffff";
+        targetCtx.globalAlpha = 1;
+      } else if (stroke.tool === "marker") {
+        targetCtx.globalCompositeOperation = "multiply";
+        targetCtx.strokeStyle = stroke.color;
+        targetCtx.globalAlpha = 0.34;
+      } else {
+        targetCtx.globalCompositeOperation = "source-over";
+        targetCtx.strokeStyle = stroke.color;
+        targetCtx.globalAlpha = 1;
+      }
+
+      targetCtx.lineWidth = stroke.width;
+
+      if (stroke.points.length === 1) {
+        const p = stroke.points[0];
+        targetCtx.fillStyle = stroke.tool === "eraser" ? "#ffffff" : stroke.color;
+        targetCtx.beginPath();
+        targetCtx.arc(p.x, p.y, stroke.width / 2, 0, Math.PI * 2);
+        targetCtx.fill();
+      } else {
+        targetCtx.beginPath();
+        targetCtx.moveTo(stroke.points[0].x, stroke.points[0].y);
+        for (let i = 1; i < stroke.points.length; i++) {
+          targetCtx.lineTo(stroke.points[i].x, stroke.points[i].y);
+        }
+        targetCtx.stroke();
+      }
+
+      targetCtx.restore();
+    }
+
+    function renderCanvas() {
+      ctx.save();
+      ctx.globalCompositeOperation = "source-over";
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      drawHalfHeartOutline(ctx, canvas.width, canvas.height);
+
+      for (const stroke of strokes) {
+        drawSingleStroke(ctx, stroke);
+      }
+
+      drawHalfHeartOutline(ctx, canvas.width, canvas.height);
+      ctx.restore();
+    }
+
+    function syncCanvasResolution() {
+      const rect = canvasWrap.getBoundingClientRect();
+      const targetW = Math.max(600, Math.round(rect.width));
+      const targetH = Math.max(360, Math.round(rect.height));
+
+      if (canvas.width === targetW && canvas.height === targetH) return;
+
+      const scaleX = targetW / canvas.width;
+      const scaleY = targetH / canvas.height;
+      const avgScale = (scaleX + scaleY) / 2;
+
+      strokes = strokes.map((s) => ({
+        ...s,
+        width: Math.max(1.5, s.width * avgScale),
+        points: s.points.map((p) => ({
+          x: p.x * scaleX,
+          y: p.y * scaleY
+        }))
+      }));
+
+      canvas.width = targetW;
+      canvas.height = targetH;
+      renderCanvas();
+    }
+
+    function getCanvasPoint(e) {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      return {
+        x: (e.clientX - rect.left) * scaleX,
+        y: (e.clientY - rect.top) * scaleY
+      };
+    }
+
+    canvas.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      canvas.setPointerCapture(e.pointerId);
+      const pt = getCanvasPoint(e);
+      isDrawing = true;
+      lastPt = pt;
+
+      currentStroke = {
+        tool: currentTool,
+        color: currentColor,
+        width: SIZE_MAP[currentTool][currentSizeKey],
+        points: [pt]
+      };
+      strokes.push(currentStroke);
+      renderCanvas();
+    });
+
+    canvas.addEventListener("pointermove", (e) => {
+      if (!isDrawing || !currentStroke) return;
+      e.preventDefault();
+      const pt = getCanvasPoint(e);
+      const dx = pt.x - lastPt.x;
+      const dy = pt.y - lastPt.y;
+      if (dx * dx + dy * dy < 1.5) return;
+
+      currentStroke.points.push(pt);
+      lastPt = pt;
+      renderCanvas();
+    });
+
+    function finishStroke(e) {
+      if (!isDrawing) return;
+      isDrawing = false;
+      lastPt = null;
+      currentStroke = null;
+      if (e && canvas.hasPointerCapture(e.pointerId)) {
+        canvas.releasePointerCapture(e.pointerId);
+      }
+    }
+
+    canvas.addEventListener("pointerup", finishStroke);
+    canvas.addEventListener("pointercancel", finishStroke);
+
+    function setTool(tool) {
+      currentTool = tool;
+      penToolBtn.classList.toggle("active", tool === "pen");
+      markerToolBtn.classList.toggle("active", tool === "marker");
+      eraserToolBtn.classList.toggle("active", tool === "eraser");
+    }
+
+    penToolBtn.addEventListener("click", () => setTool("pen"));
+    markerToolBtn.addEventListener("click", () => setTool("marker"));
+    eraserToolBtn.addEventListener("click", () => setTool("eraser"));
+
+    swatchBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        currentColor = btn.dataset.color;
+        swatchBtns.forEach((b) => b.classList.toggle("active", b === btn));
+        if (currentTool === "eraser") {
+          setTool("pen");
+        }
+      });
+    });
+
+    sizeBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        currentSizeKey = btn.dataset.size;
+        sizeBtns.forEach((b) => b.classList.toggle("active", b === btn));
+      });
+    });
+
+    undoBtn.addEventListener("click", () => {
+      if (strokes.length > 0) {
+        strokes.pop();
+        renderCanvas();
+      }
+    });
+
+    clearBtn.addEventListener("click", () => {
+      strokes = [];
+      objectInput.value = "";
+      manualArticleOverride = false;
+      setArticle("an", false);
+      renderCanvas();
+    });
+
+    sparksToggle.addEventListener("click", () => {
+      const isOpen = sparksPanel.classList.toggle("open");
+      sparksToggle.setAttribute("aria-expanded", String(isOpen));
+      syncCanvasResolution();
+    });
+
+    sparkPills.forEach((pill) => {
+      pill.addEventListener("click", () => {
+        const idea = pill.dataset.idea;
+        objectInput.value = idea;
+        manualArticleOverride = false;
+        const suggested = suggestArticleForWord(idea);
+        if (suggested) setArticle(suggested, false);
+        objectInput.focus();
+      });
+    });
+
+    saveBtn.addEventListener("click", () => {
+      const exportCanvas = document.createElement("canvas");
+      const w = 1040;
+      const h = 860;
+      exportCanvas.width = w;
+      exportCanvas.height = h;
+      const ectx = exportCanvas.getContext("2d");
+
+      ectx.fillStyle = "#fff9f0";
+      ectx.fillRect(0, 0, w, h);
+
+      ectx.fillStyle = "#1e2430";
+      ectx.font = '900 48px "Trebuchet MS", "Segoe UI", sans-serif';
+      ectx.textAlign = "center";
+      ectx.textBaseline = "middle";
+      ectx.fillText("This is not a heart.", w / 2, 54);
+
+      const answer = objectInput.value.trim();
+      const blankSentence = answer
+        ? `This is ${chosenArticle} ${answer}.`
+        : `This is ${chosenArticle} ________________________.`;
+
+      ectx.font = '800 38px "Trebuchet MS", "Segoe UI", sans-serif';
+      ectx.fillText(blankSentence, w / 2, 108);
+
+      const padX = 48;
+      const padY = 148;
+      const drawW = w - padX * 2;
+      const drawH = 664;
+
+      ectx.save();
+      ectx.fillStyle = "#ffffff";
+      ectx.strokeStyle = "#d8d1c5";
+      ectx.lineWidth = 4;
+      ectx.beginPath();
+      ectx.roundRect(padX, padY, drawW, drawH, 24);
+      ectx.fill();
+      ectx.stroke();
+      ectx.clip();
+
+      ectx.save();
+      ectx.translate(padX, padY);
+      ectx.scale(drawW / canvas.width, drawH / canvas.height);
+
+      drawHalfHeartOutline(ectx, canvas.width, canvas.height);
+      for (const stroke of strokes) {
+        drawSingleStroke(ectx, stroke);
+      }
+      drawHalfHeartOutline(ectx, canvas.width, canvas.height);
+      ectx.restore();
+
+      const studentName = studentNameInput.value.trim();
+      const studentNo = studentNoInput.value.trim();
+
+      ectx.fillStyle = "#2b3342";
+      ectx.font = '700 24px "Trebuchet MS", "Segoe UI", sans-serif';
+      ectx.textBaseline = "top";
+
+      ectx.textAlign = "left";
+      ectx.fillText(
+        `Name: ${studentName || "______________________"}`,
+        padX + 24,
+        padY + 18
+      );
+
+      ectx.textAlign = "right";
+      ectx.fillText(
+        `Student No.: ${studentNo || "__________"}`,
+        padX + drawW - 24,
+        padY + 18
+      );
+
+      ectx.restore();
+
+      const link = document.createElement("a");
+      const safeSlug = (answer || "drawing")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
+      link.download = `this-is-not-a-heart-${chosenArticle}-${safeSlug || "drawing"}.png`;
+      link.href = exportCanvas.toDataURL("image/png");
+      link.click();
+    });
+
+    window.addEventListener("resize", syncCanvasResolution);
+    syncCanvasResolution();
+    renderCanvas();
+  </script>
+</body>
+</html>
